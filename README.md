@@ -20,7 +20,7 @@ In the diagram, this component is the `Focus Data Presentation Composition` (in 
 The configuration requires the filter for the `DataPresentationAzure` resource, and the `ScraperConfig`, to allow the data to be stored into the database (**note**: the `tableName` must be set to _pricing_table_, or consider modifying the notebook on the finops-database-handler for frontend presentation):
 ```yaml
 apiVersion: composition.krateo.io/v0-1-0
-kind: FocusDataPresentationAzure
+kind: AzurePricingFinops
 metadata:
   name: finops-example-azure-vm-pricing
   namespace: azure-pricing-system
