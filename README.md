@@ -20,18 +20,19 @@ In the diagram, this component is the `Focus Data Presentation Composition` (in 
 The configuration requires the filter for the `DataPresentationAzure` resource, and the `ScraperConfig`, to allow the data to be stored into the database (**note**: the `tableName` must be set to _pricing_table_, or consider modifying the notebook on the finops-database-handler for frontend presentation):
 ```yaml
 apiVersion: composition.krateo.io/v0-1-0
-kind: FocusTemplate
+kind: FocusDataPresentationAzure
 metadata:
-  name: sample
-  namespace: krateo-system
+  name: finops-example-azure-vm-pricing
+  namespace: azure-pricing-system
 spec:
-  filter: serviceFamily eq 'Compute' and armRegionName eq 'westeurope' and skuId eq 'DZH318Z08NRP/001B' and type eq 'Consumption'
+  annotationKey: krateo-finops-focus-resource
+  filter: serviceName eq 'Virtual Machines' and armSkuName eq 'Standard_B2s' and type eq 'Consumption'
   operatorFocusNamespace: krateo-system
   scraperConfig:
-    tableName: pricing_table # This table name is currently mandatory
-    pollingIntervalHours: 1
+    tableName: pricing_table
+    pollingInterval: "1h"
     scraperDatabaseConfigRef: 
-      name: cratedb-config
+      name: finops-database-handler
       namespace: krateo-system
 ```
 
