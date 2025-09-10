@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "annotationKey": {
+      "default": "krateo-finops-focus-resource",
+      "required": [],
+      "title": "annotationKey",
+      "type": "string"
+    },
+    "filter": {
+      "default": "",
+      "required": [],
+      "title": "filter",
+      "type": "string"
+    },
+    "global": {
+      "description": "Global values are values that can be accessed from any chart or subchart by exactly the same name.",
+      "required": [],
+      "title": "global",
+      "type": "object"
+    },
+    "operatorFocusNamespace": {
+      "default": "krateo-system",
+      "required": [],
+      "title": "operatorFocusNamespace",
+      "type": "string"
+    },
+    "scraperConfig": {
+      "additionalProperties": false,
+      "properties": {
+        "pollingInterval": {
+          "default": "1h",
+          "required": [],
+          "title": "pollingInterval",
+          "type": "string"
+        },
+        "scraperDatabaseConfigRef": {
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "default": "cratedb-config",
+              "required": [],
+              "title": "name",
+              "type": "string"
+            },
+            "namespace": {
+              "default": "krateo-system",
+              "required": [],
+              "title": "namespace",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "namespace"
+          ],
+          "title": "scraperDatabaseConfigRef",
+          "type": "object"
+        },
+        "tableName": {
+          "default": "pricing_table",
+          "required": [],
+          "title": "tableName",
+          "type": "string"
+        }
+      },
+      "required": [
+        "tableName",
+        "pollingInterval",
+        "scraperDatabaseConfigRef"
+      ],
+      "title": "scraperConfig",
+      "type": "object"
+    }
+  },
+  "required": [
+    "filter",
+    "annotationKey",
+    "operatorFocusNamespace",
+    "scraperConfig"
+  ],
+  "type": "object"
+}

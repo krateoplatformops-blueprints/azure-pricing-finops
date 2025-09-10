@@ -1,0 +1,6 @@
+apiVersion: finops.krateo.io/v1alpha1
+kind: DataPresentationAzure
+metadata:
+  name: {{ include "focus-data-presentation-azure.fullname" . }}
+spec:
+  $filter: {{ .Values.filter }}

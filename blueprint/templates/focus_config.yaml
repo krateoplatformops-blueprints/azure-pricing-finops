@@ -1,0 +1,39 @@
+{{- $resource := lookup "finops.krateo.io/v1alpha1" "DataPresentationAzure" .Release.Namespace (include "focus-data-presentation-azure.fullname" .) -}}
+{{- if and $resource $resource.status }}
+apiVersion: finops.krateo.io/v1
+kind: FocusConfig
+metadata:
+  name: {{ include "focus-data-presentation-azure.fullname" . }}
+  namespace: {{ .Values.operatorFocusNamespace }}
+spec:
+  scraperConfig:
+    tableName: {{ .Values.scraperConfig.tableName }}
+    pollingInterval: {{ .Values.scraperConfig.pollingInterval }}
+    scraperDatabaseConfigRef: 
+      name: {{ .Values.scraperConfig.scraperDatabaseConfigRef.name }}
+      namespace: {{ .Values.scraperConfig.scraperDatabaseConfigRef.namespace }}
+  focusSpec:
+    availabilityZone: {{ $resource.status.location }}
+    regionName: {{ $resource.status.armRegionName }}
+    listUnitPrice: {{ $resource.status.unitPrice }}
+    pricingUnit: {{ $resource.status.unitOfMeasure }}
+    billedCost: 0.0
+    billingCurrency: {{ $resource.status.currencyCode }}
+    billingPeriodEnd: "2024-01-01T00:00:00+02:00"
+    billingPeriodStart: "2024-01-01T00:00:00+02:00"
+    chargeCategory: "Usage"
+    chargeDescription: "Pricing information"
+    chargePeriodEnd: "2024-01-01T00:00:00+02:00"
+    chargePeriodStart: "2024-01-01T00:00:00+02:00"
+    consumedQuantity: 0
+    consumedUnit: {{ $resource.status.unitOfMeasure }}
+    contractedCost: 0
+    invoiceIssuerName: "Azure"
+    resourceName: {{ $resource.status.productName }}
+    serviceCategory: {{ $resource.status.serviceFamily }}
+    serviceName: {{ $resource.status.serviceName }}
+    skuId: {{ $resource.status.skuId }}
+    tags:
+    - key: {{ .Values.annotationKey }}
+      value: {{ $resource.status.armSkuName }}
+{{- end }}
