@@ -1,4 +1,4 @@
-# Focus Data Presentation Azure Composition
+# Azure Pricing FinOps
 This composition is part of the FinOps Data Presentation component, in the Krateo Composable FinOps.
 
 ## Summary
